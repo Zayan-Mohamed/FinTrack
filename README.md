@@ -24,8 +24,8 @@ A comprehensive financial tracking application built with Svelte that helps you 
 1. Clone the repository or download the source code:
 
    ```bash
-   git clone https://github.com/yourusername/personal-finance-dashboard.git
-   cd personal-finance-dashboard
+   git clone https://github.com/Zayan-Mohamed/FinTrack.git
+   cd FinTrack
    ```
 
 2. Install dependencies:
