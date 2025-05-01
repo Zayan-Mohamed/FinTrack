@@ -1,0 +1,36 @@
+<script>
+  import { Router, Route, link } from 'svelte-routing';
+  import Header from './components/Layout/Header.svelte';
+  import Sidebar from './components/Layout/Sidebar.svelte';
+  import Footer from './components/Layout/Footer.svelte';
+  import Dashboard from './routes/dashboard.svelte';
+  import Expenses from './routes/expenses.svelte';
+  import Income from './routes/income.svelte';
+  import Reports from './routes/reports.svelte';
+  import Settings from './routes/settings.svelte';
+
+  let currentRoute = 'dashboard';
+</script>
+
+<main class="flex flex-col min-h-screen">
+  <Header />
+  <div class="flex flex-grow">
+    <Sidebar />
+    <div class="flex-grow p-4">
+      <Router>
+        <Route path="/" component={Dashboard} />
+        <Route path="/expenses" component={Expenses} />
+        <Route path="/income" component={Income} />
+        <Route path="/reports" component={Reports} />
+        <Route path="/settings" component={Settings} />
+      </Router>
+    </div>
+  </div>
+  <Footer />
+</main>
+
+<style>
+  main {
+    background-color: #f9fafb; /* Tailwind's gray-100 */
+  }
+</style>

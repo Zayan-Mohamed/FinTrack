@@ -1,0 +1,11 @@
+/* jsconfig.json */
+{
+    "extends": "./.svelte-kit/tsconfig.json",
+    "compilerOptions": {
+        "checkJs": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "target": "esnext"
+    }
+}
