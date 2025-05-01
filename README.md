@@ -1,38 +1,96 @@
-# sv
+# Personal Finance Dashboard
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A comprehensive financial tracking application built with Svelte that helps you manage your income, expenses, savings goals, and visualize your financial health.
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Dashboard Overview**: Get a quick snapshot of your financial status with charts and summaries
+- **Income Tracking**: Log and categorize your income sources
+- **Expense Management**: Track expenses by category and payment method
+- **Savings Goals**: Set and monitor progress towards financial goals
+- **Reports**: Generate detailed financial reports with insights and trends
+- **Settings**: Customize your experience with preferences for currency, theme, date formats, and more
+- **Data Management**: Import/export your financial data for backup or migration
 
-```bash
-# create a new project in the current directory
-npx sv create
+## Getting Started
 
-# create a new project in my-app
-npx sv create my-app
-```
+### Prerequisites
 
-## Developing
+- Node.js (v16 or newer recommended)
+- npm, yarn, or pnpm package manager
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Installation
 
-```bash
-npm run dev
+1. Clone the repository or download the source code:
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+   ```bash
+   git clone https://github.com/yourusername/personal-finance-dashboard.git
+   cd personal-finance-dashboard
+   ```
 
-## Building
+2. Install dependencies:
 
-To create a production version of your app:
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   # or
+   npm run dev -- --open   # to automatically open in browser
+   ```
+
+4. The application will be available at `http://localhost:5173`
+
+## Building for Production
+
+To create a production-ready build:
 
 ```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+Preview the production build locally:
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```bash
+npm run preview
+```
+
+## Data Storage
+
+All your financial data is stored locally in your browser using localStorage. No data is sent to any external servers, ensuring your financial information remains private.
+
+## Features in Detail
+
+### Data Management
+
+- **Export Data**: Back up all your financial data as a JSON file
+- **Import Data**: Restore from a previously exported backup
+- **Clear Data**: Option to reset all stored data when needed
+
+### Customization
+
+- **Currency Options**: Support for USD, EUR, GBP, CAD, AUD, JPY, LKR, INR and more
+- **Theme Selection**: Light and dark modes available
+- **Display Preferences**: Configure number formats, date formats, and more
+
+## Technologies Used
+
+- Svelte/SvelteKit
+- TailwindCSS
+- Chart.js
+- LocalStorage for data persistence
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
