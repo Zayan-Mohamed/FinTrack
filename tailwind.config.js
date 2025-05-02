@@ -1,7 +1,7 @@
 /* tailwind.config.js */
 export const content = [
   './src/**/*.{html,js,svelte,ts,css}',
-  './src/styles/**/*.{css}'
+  './src/styles/**/*.css'
 ];
 export const safelist = [
   'bg-gray-100',

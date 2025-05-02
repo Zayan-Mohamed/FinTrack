@@ -219,7 +219,7 @@
 
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-4">
 			<div>
-				<label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Time Period</label
+				<label for="time-period" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Time Period</label
 				>
 				<select
 					bind:value={period}
@@ -234,7 +234,7 @@
 
 			{#if period === 'month'}
 				<div>
-					<label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Month</label>
+					<label for="month" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Month</label>
 					<select
 						bind:value={selectedMonth}
 						class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
@@ -246,7 +246,7 @@
 				</div>
 
 				<div>
-					<label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Year</label>
+					<label for="year" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Year</label>
 					<select
 						bind:value={selectedYear}
 						class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
@@ -258,7 +258,7 @@
 				</div>
 			{:else if period === 'year'}
 				<div>
-					<label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Year</label>
+					<label for="year" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Year</label>
 					<select
 						bind:value={selectedYear}
 						class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
@@ -273,18 +273,18 @@
 	</div>
 
 	<!-- Financial Summary -->
-	<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-3 mb-5 ">
 		<div class="rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 dark:text-gray-200">
 			<h2 class="text-xl font-semibold">Total Income</h2>
-			<p class="text-lg">${formatCurrency(totalIncome)}</p>
+			<p class="text-lg">{formatCurrency(totalIncome)}</p>
 		</div>
 		<div class="rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 dark:text-gray-200">
 			<h2 class="text-xl font-semibold">Total Expenses</h2>
-			<p class="text-lg">${formatCurrency(totalExpenses)}</p>
+			<p class="text-lg">{formatCurrency(totalExpenses)}</p>
 		</div>
 		<div class="rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 dark:text-gray-200">
 			<h2 class="text-xl font-semibold">Total Savings</h2>
-			<p class="text-lg">${formatCurrency(totalSavings)}</p>
+			<p class="text-lg">{formatCurrency(totalSavings)}</p>
 		</div>
 	</div>
 

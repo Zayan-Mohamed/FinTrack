@@ -5,6 +5,7 @@
 	import { savings } from '../../lib/stores/savings';
 	import { formatCurrency } from '../../lib/utils/formatters';
 	import { browser } from '$app/environment';
+	import { settingsStore } from '../../lib/stores/settings';
 
 	// Canvas references
 	let barChartCanvas;
@@ -56,6 +57,21 @@
 				processData();
 				initializeCharts();
 			}, 100);
+
+			// Subscribe to theme changes
+			const unsubscribeTheme = settingsStore.subscribe((settings) => {
+				if (chartLoaded && browser) {
+					// Reinitialize charts when theme changes
+					setTimeout(() => {
+						initializeCharts();
+					}, 0);
+				}
+			});
+
+			// Clean up subscription
+			return () => {
+				unsubscribeTheme();
+			};
 		} catch (e) {
 			console.error('Error loading Chart.js:', e);
 		}
@@ -73,6 +89,13 @@
 	$: if (chartLoaded && browser && (dateRange.start || dateRange.end)) {
 		processData();
 		initializeCharts();
+	}
+
+	// React to chart type changes
+	$: if (chartLoaded && browser && selectedChart) {
+		setTimeout(() => {
+			initializeCharts();
+		}, 0);
 	}
 
 	function processData() {
