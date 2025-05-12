@@ -563,7 +563,11 @@
 
 			<div class="mb-6 text-sm text-gray-600 dark:text-gray-300">
 				<p class="mb-2"><strong>FinTrack Personal Finance Dashboard</strong></p>
-				<p class="mb-4">Version 1.0.0</p>
+				<p class="mb-4">Version 1.2.0</p>
+				<p class="mb-2 text-xs text-gray-500 dark:text-gray-400">
+					Developed by <a class="text-red-500 hover:underline dark:text-blue-600 transition animate-bounce" href="https://github.com/Zayan-Mohamed">Zayan Mohamed</a>
+				</p>
+				
 
 				<p class="mb-2 text-xs text-gray-500 dark:text-gray-400">
 					FinTrack is your personal finance tracking solution, helping you manage expenses, income,
