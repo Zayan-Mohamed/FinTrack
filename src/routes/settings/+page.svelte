@@ -5,6 +5,7 @@
 	import { savings } from '../../lib/stores/savings';
 	import { fade } from 'svelte/transition';
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
 	// Use reactive store
 	$: settings = $settingsStore;
@@ -17,8 +18,13 @@
 	let confirmingReset = false;
 	let fileInputRef;
 	let exportFilename = `fintrack-backup-${new Date().toISOString().slice(0, 10)}.json`;
-	let advancedMode = false;
 	let importError = '';
+
+	// Use the advanced mode value from settings instead of local state
+	$: advancedMode = settings.advancedMode;
+
+	// Storage usage tracking
+	let storageUsage = 0;
 
 	const updateSettings = (key, value) => {
 		settingsStore.update((current) => {
@@ -52,14 +58,15 @@
 				const currentLanguage = settings.language;
 				settingsStore.update((current) => {
 					return {
-						currency: 'USD',
+						currency: 'LKR',
 						theme: currentTheme,
 						notifications: true,
 						language: currentLanguage,
 						displayDecimal: true,
 						compactNumbers: false,
 						dateFormat: 'MM/DD/YYYY',
-						startDayOfWeek: 'sunday'
+						startDayOfWeek: 'sunday',
+						advancedMode: false
 					};
 				});
 
@@ -101,6 +108,42 @@
 		}
 	}
 
+	// Calculate storage usage
+	function calculateStorageUsage() {
+		if (browser) {
+			try {
+				// Calculate total storage used
+				const totalBytes =
+					(localStorage.getItem('income') || '').length +
+					(localStorage.getItem('expenses') || '').length +
+					(localStorage.getItem('savings') || '').length +
+					(localStorage.getItem('settings') || '').length;
+
+				// Approximate max storage (5MB is common limit)
+				const maxStorage = 5 * 1024 * 1024;
+				storageUsage = Math.min(100, Math.round((totalBytes / maxStorage) * 100));
+			} catch (error) {
+				console.error('Error calculating storage:', error);
+				storageUsage = 0;
+			}
+		}
+	}
+
+	// Toggle advanced mode
+	function toggleAdvancedMode() {
+		updateSettings('advancedMode', !settings.advancedMode);
+
+		// If enabling advanced mode, show a notification explaining what it does
+		if (!settings.advancedMode) {
+			showNotification('Advanced mode enabled - additional features unlocked!');
+		}
+	}
+
+	// Call on component mount to initialize values
+	onMount(() => {
+		calculateStorageUsage();
+	});
+
 	function handleFileUpload(e) {
 		const file = e.target.files[0];
 		if (!file) return;
@@ -108,7 +151,7 @@
 		const reader = new FileReader();
 		reader.onload = function (event) {
 			try {
-				const data = JSON.parse(event.target.result);
+				const data = JSON.parse(event.target.result.toString());
 				backupData = data;
 
 				// Validate backup data structure
@@ -544,7 +587,7 @@
 						class={`${
 							advancedMode ? 'bg-purple-600' : 'bg-gray-300 dark:bg-gray-600'
 						} relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500`}
-						on:click={() => (advancedMode = !advancedMode)}
+						on:click={toggleAdvancedMode}
 						aria-pressed={advancedMode}
 					>
 						<span
@@ -559,6 +602,27 @@
 				</p>
 			</div>
 
+			{#if advancedMode}
+				<div
+					transition:fade={{ duration: 200 }}
+					class="mt-4 rounded-lg bg-purple-50 p-4 dark:bg-purple-900/30"
+				>
+					<h3 class="mb-2 text-sm font-medium text-purple-700 dark:text-purple-300">
+						Advanced Features Enabled
+					</h3>
+					<ul class="ml-5 list-disc text-xs text-purple-600 dark:text-purple-400">
+						<li>Detailed financial analytics</li>
+						<li>Custom data visualization options</li>
+						<li>Advanced budget forecasting</li>
+						<li>Custom category management</li>
+						<li>Data export in multiple formats</li>
+					</ul>
+					<p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+						Some features may still be in development
+					</p>
+				</div>
+			{/if}
+
 			<!-- Storage Usage -->
 			<div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-700">
 				<h3 class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -566,10 +630,10 @@
 				</h3>
 
 				<div class="h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-600">
-					<div class="h-full rounded-full bg-blue-500" style="width: 25%;"></div>
+					<div class="h-full rounded-full bg-blue-500" style="width: {storageUsage}%;"></div>
 				</div>
 				<p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-					Using approximately 25% of available local storage
+					Using approximately {storageUsage}% of available local storage
 				</p>
 			</div>
 		</div>
