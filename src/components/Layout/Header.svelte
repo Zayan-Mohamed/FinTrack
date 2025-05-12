@@ -51,7 +51,7 @@
             <ul class="flex space-x-6">
                 {#each ['Dashboard', 'Income', 'Expenses', 'Reports', 'Settings'] as item}
                     {@const path = item.toLowerCase() === 'dashboard' ? '/dashboard' : `/${item.toLowerCase()}`}
-                    {@const isActive = $page?.path === path}
+                    {@const isActive = $page?.url.pathname === path}
                     <li>
                         <a 
                             href={path} 
@@ -146,7 +146,7 @@
             <ul class="space-y-1 px-4">
                 {#each ['Dashboard', 'Income', 'Expenses', 'Reports', 'Settings'] as item}
                     {@const path = item.toLowerCase() === 'dashboard' ? '/dashboard' : `/${item.toLowerCase()}`}
-                    {@const isActive = $page?.path === path}
+                    {@const isActive = $page?.url.pathname === path}
                     <li>
                         <a 
                             href={path} 

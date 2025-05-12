@@ -144,7 +144,7 @@
         <nav class="px-2 py-4 flex-1 overflow-y-auto">
             <ul class="space-y-1">
                 {#each navItems as item}
-                    {@const isActive = $page?.path === item.path}
+                    {@const isActive = $page?.url.pathname === item.path}
                     <li>
                         <a 
                             href={item.path} 
